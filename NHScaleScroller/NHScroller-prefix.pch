@@ -1,0 +1,14 @@
+//
+//  NHScroller-prefix.pch
+//  NHScaleScroller
+//
+//  Created by hu jiaju on 16/3/4.
+//  Copyright © 2016年 hu jiaju. All rights reserved.
+//
+
+#ifndef NHScroller_prefix_pch
+#define NHScroller_prefix_pch
+
+#import <Masonry.h>
+
+#endif /* NHScroller_prefix_pch */
