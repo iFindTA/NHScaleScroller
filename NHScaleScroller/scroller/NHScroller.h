@@ -22,21 +22,21 @@
 @protocol NHScrollerDataSource <NSObject>
 
 /*!
- *  @brief <#Description#>
+ *  @brief requery the number
  *
- *  @param scroller <#scroller description#>
+ *  @param scroller the scroller
  *
- *  @return <#return value description#>
+ *  @return the number of scroller
  */
 - (NSInteger)numberOfScroller:(NHScroller *)scroller;
 
 /*!
- *  @brief <#Description#>
+ *  @brief query view
  *
- *  @param scroller <#scroller description#>
- *  @param index    <#index description#>
+ *  @param scroller the scroller
+ *  @param index    index for view
  *
- *  @return <#return value description#>
+ *  @return the destnation view
  */
 - (UIView *)viewForScroller:(NHScroller *)scroller forIndex:(NSInteger)index;
 
@@ -45,10 +45,10 @@
 @protocol NHScrollerDelegate <NSObject>
 
 /*!
- *  @brief <#Description#>
+ *  @brief did scroll
  *
- *  @param scroller <#scroller description#>
- *  @param index    <#index description#>
+ *  @param scroller the scroller
+ *  @param index    index for view
  */
 - (void)scroller:(NHScroller *)scroller didScrollToIndex:(NSInteger)index;
 

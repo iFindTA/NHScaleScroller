@@ -32,6 +32,7 @@
         //self.delegate = self;
         self.clipsToBounds = false;
         self.pagingEnabled = true;
+        self.bouncesZoom = false;
         self.showsVerticalScrollIndicator = false;
         self.showsHorizontalScrollIndicator = false;
     }
@@ -125,7 +126,7 @@ static CGFloat pageOffset = 10.f;
     [self.scroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSInteger counts = [self.dataSource numberOfScroller:self];
     
-    for (int i = 0;i < counts; i++) {
+    for (int i = 0; i < counts; i++) {
         UIView *tmp = [self.dataSource viewForScroller:self forIndex:i];
         
         CGRect frame = CGRectMake(i*self.pageWidth, 0, self.pageWidth, self.pageHeiht);
@@ -136,14 +137,23 @@ static CGFloat pageOffset = 10.f;
         [back addSubview:tmp];
         [self.scroll addSubview:back];
     }
-    self.scroll.contentSize = CGSizeMake(counts*self.pageWidth, self.pageHeiht);
+    
+    CGFloat pageWidth = self.pageWidth;
     if (counts > 2) {
         CGPoint offset = CGPointMake(self.pageWidth, 0);
         [self.scroll setContentOffset:offset animated:false];
+    }else{
+        pageWidth += (counts == 1?1.f:0.f);
+        [self updateSubviewsState];
     }
+    self.scroll.contentSize = CGSizeMake(counts*pageWidth, self.pageHeiht);
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self updateSubviewsState];
+}
+
+- (void)updateSubviewsState {
     NSArray *subviews = [self.scroll subviews];
     [subviews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *tmp = (UIView *)obj;

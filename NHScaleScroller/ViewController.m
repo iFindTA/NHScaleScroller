@@ -29,6 +29,10 @@
     return self;
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    NSLog(@"touch index :%zd",self.index);
+}
+
 - (void)drawRect:(CGRect)rect {
     NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:30],NSFontAttributeName, nil];
     NSString *info = [NSString stringWithFormat:@"index:%zd",self.index];
@@ -69,7 +73,7 @@
 }
 
 - (NSInteger)numberOfScroller:(NHScroller *)scroller {
-    return 5;
+    return 3;
 }
 
 - (UIView *)viewForScroller:(NHScroller *)scroller forIndex:(NSInteger)index {
