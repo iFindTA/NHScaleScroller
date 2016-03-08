@@ -123,6 +123,7 @@ static CGFloat pageOffset = 10.f;
 }
 
 - (void)reloaData {
+    NSAssert(self.dataSource != nil, @"scroller's dataSource cannot be nil !");
     [self.scroll.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     NSInteger counts = [self.dataSource numberOfScroller:self];
     
@@ -162,6 +163,14 @@ static CGFloat pageOffset = 10.f;
         CGFloat scale = maxTinderScale-(maxTinderScale-minTinderScale)*percent;
         tmp.transform = CGAffineTransformMakeScale(scale, scale);
     }];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGFloat offset_x = scrollView.contentOffset.x;
+    NSInteger pageIndex = (offset_x+self.pageWidth*0.5)/self.pageWidth;
+    if (_delegate && [_delegate respondsToSelector:@selector(scroller:didScrollToIndex:)]) {
+        [_delegate scroller:self didScrollToIndex:pageIndex];
+    }
 }
 
 - (UIColor *)randomColor {
